@@ -101,6 +101,8 @@ class PotentialClass {
   }
 
   toClassDeclaration() {
+    this.constructor.commentNodes = this.commentNodes;
+    this.commentNodes = undefined;
     return {
       type: 'ClassDeclaration',
       superClass: this.superClass,
@@ -112,11 +114,11 @@ class PotentialClass {
         type: 'ClassBody',
         body: this.createMethods()
       },
-      comments: extractComments(this.commentNodes),
+      comments: undefined,
     };
   }
 
-  createMethods() {
+    createMethods() {
     return compact([
       this.createConstructor(),
       ...this.methods.map(method => {
